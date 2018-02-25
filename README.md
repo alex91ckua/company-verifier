@@ -1,24 +1,22 @@
-# README
+# Company Verifier
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Основна ідея aпп полягає в аналізі та подальшій роботі з отриманими та відсортованими даними про компаній.
 
-Things you may want to cover:
+### Як це працює
 
-* Ruby version
+В нас є деякий .csv файл зі списком компаній (кількість полів довільна і може бути в різному порядку) який ми можемо імпортувати в наш апп (файл може бути великий тому обробку потрібно робити в background). 
+При обробці цього csv наша апп має проаналізувати технічну якість сайту компанії використовуючи API від GTmetrix, і якщо сайт має мало балів то ми маємо додати його в список "можливих потенційних клієнтів" і можливій подальшій відправкі рекомендацій чи пропонуванні своїх послуг. 
 
-* System dependencies
+----------------
 
-* Configuration
+### Features
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- звичайна автентифікація типу http_basic
+- імпорт csv 
+	- mapping полів завантаженого csv файлу
+	- обробка великих csv файлів (background task)
+	- зберігання результатів тесту gtmetrix про кожну компанію
+- вибірка проаналізованих компаній по кількості балів
+- можливість експорту проаналізованого списку компаній
+- можливість відправити емейл пропозицію вибраним компаніям
+- можливість редагування емейл шаблону
