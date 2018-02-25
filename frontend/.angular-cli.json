@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "frontend"
+    "name": "company-verifier-frontend"
   },
   "apps": [
     {
@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "css/bootstrap.min.css",
-        "css/styles.scss"
+        "css/styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -65,7 +65,7 @@ export class CompaniesImportComponent implements OnInit {
     this._http.importCompanies(form_data).subscribe(
         data => {
           console.log(data);
-          this.done = true;
+          // this.done = true; // for testing only!
           this.import_message = data['message'];
         },
         err => {

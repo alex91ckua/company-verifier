@@ -13,11 +13,14 @@ import { CompaniesComponent } from './components/companies/companies.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
 import {FormsModule} from "@angular/forms";
-import {AlertModule} from "ngx-bootstrap";
+import {AlertModule, ProgressbarModule} from "ngx-bootstrap";
+import { TestingJobsComponent } from './components/testing-jobs/testing-jobs.component';
+import {AngularFontAwesomeModule} from "angular-font-awesome";
 
 const appRoutes: Routes = [
   { path: 'import', component: CompaniesImportComponent },
   { path: 'companies', component: CompaniesComponent },
+  { path: 'jobs', component: TestingJobsComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
@@ -30,7 +33,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     FooterComponent,
     CompaniesImportComponent,
     HomeComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    TestingJobsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     HttpClientModule,
     rootRouting,
     PapaParseModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ProgressbarModule.forRoot(),
+    AngularFontAwesomeModule
   ],
   providers: [
       ApiService

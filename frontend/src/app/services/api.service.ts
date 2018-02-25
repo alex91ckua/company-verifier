@@ -20,4 +20,8 @@ export class ApiService {
     return this.http.get(AppSettings.API_ENDPOINT + '/companies');
   }
 
+  getTestingJobs(){
+    return this.http.get(AppSettings.API_ENDPOINT + '/testing_jobs');
+  }
+
 }

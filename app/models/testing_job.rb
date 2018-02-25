@@ -1,0 +1,2 @@
+class TestingJob < ApplicationRecord
+end
