@@ -1,0 +1,69 @@
+<h2>Import</h2>
+
+<form *ngIf="!done" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label for="csv_input_file">File</label>
+    <input type="file" class="form-control-file" id="csv_input_file" name="csv_file" (change)="onCsvSelect($event)" aria-describedby="file_help" accept="text/csv,text/plain" >
+    <small id="file_help" class="form-text text-muted">Please select .csv file with companies data</small>
+  </div>
+
+
+  <div class="form-group" *ngIf="parsed_data" >
+
+    <h4>Please map csv headers with corresponding fields</h4>
+
+    <table *ngIf="parsed_data.meta.fields" class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Required Fields</th>
+        <th scope="col">CSV Fields</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr  >
+          <th scope="row">1</th>
+          <td>Company Name</td>
+          <td>
+            <select required [(ngModel)]="mapped_fields.name" name="name" (change)="onFieldChange()" >
+              <option disabled selected value="" >-- skip --</option>
+              <option *ngFor="let csv_field of parsed_data.meta.fields" [ngValue]="csv_field" >{{csv_field}}</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr  >
+          <th scope="row">2</th>
+          <td>Website URL</td>
+          <td>
+            <select required [(ngModel)]="mapped_fields.website_url" name="website_url" (change)="onFieldChange()" >
+              <option disabled selected value="" >-- skip --</option>
+              <option *ngFor="let csv_field of parsed_data.meta.fields" [ngValue]="csv_field" >{{csv_field}}</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr  >
+          <th scope="row">3</th>
+          <td>Email</td>
+          <td>
+            <select required [(ngModel)]="mapped_fields.email" name="email" (change)="onFieldChange()" >
+              <option disabled selected value="" >-- skip --</option>
+              <option *ngFor="let csv_field of parsed_data.meta.fields" [ngValue]="csv_field" >{{csv_field}}</option>
+            </select>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+  <button type="submit" [disabled]="disabled" class="btn btn-success">Submit</button>
+
+</form>
+
+<alert *ngIf="done" type="info">
+  {{import_message}}
+</alert>
