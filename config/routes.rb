@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :gt_metrix_tests
   resources :testing_jobs, only: [:index]
   resources :companies
   resource :company_import, :controller => 'company_import', only: [:create]

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: one
+  page_load_time: 1
+  pagespeed_score: 1
+  yslow_score: 1
+  fully_loaded_time: 1
+  report_url: MyString
+
+two:
+  company: two
+  page_load_time: 1
+  pagespeed_score: 1
+  yslow_score: 1
+  fully_loaded_time: 1
+  report_url: MyString

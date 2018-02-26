@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180225145106) do
+ActiveRecord::Schema.define(version: 20180226135902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,14 +21,29 @@ ActiveRecord::Schema.define(version: 20180225145106) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "tested", default: false
+  end
+
+  create_table "gt_metrix_tests", force: :cascade do |t|
+    t.bigint "company_id"
+    t.integer "page_load_time"
+    t.integer "pagespeed_score"
+    t.integer "yslow_score"
+    t.integer "fully_loaded_time"
+    t.string "report_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_gt_metrix_tests_on_company_id"
   end
 
   create_table "testing_jobs", force: :cascade do |t|
-    t.integer "processed"
-    t.integer "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "finished", default: false
+    t.bigint "company_id"
+    t.string "test_id"
+    t.index ["company_id"], name: "index_testing_jobs_on_company_id"
   end
 
+  add_foreign_key "gt_metrix_tests", "companies"
+  add_foreign_key "testing_jobs", "companies"
 end
