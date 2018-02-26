@@ -10,7 +10,11 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1
   def show
-    render json: @company
+    result = {
+        'company' => @company,
+        'gt_metrix_test' => @company.gt_metrix_test
+    }
+    render json: result
   end
 
   # POST /companies
@@ -41,7 +45,7 @@ class CompaniesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_company
-      @company = Company.find(params[:id])
+      @company = Company.includes(:gt_metrix_test).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
