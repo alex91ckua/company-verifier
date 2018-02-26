@@ -2,8 +2,8 @@ require 'uri'
 
 class Company < ApplicationRecord
 
-  has_many :gt_metrix_tests, dependent: :destroy
-  has_many :testing_jobs, dependent: :destroy
+  has_one :gt_metrix_test, dependent: :destroy
+  has_one :testing_job, dependent: :destroy
 
   validates :name, presence: true
   validates :website_url, presence: true
