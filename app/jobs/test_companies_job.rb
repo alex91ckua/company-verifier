@@ -16,7 +16,11 @@ class TestCompaniesJob < ApplicationJob
 
       p response
 
-      if response.body['state'] == 'completed'
+      if response.body['state'] == 'queued' || response.body['state'] == 'started'
+        # re-check it again after 1 min
+        TestCompaniesJob.set(wait: 1.minute).perform_later(testing_job)
+      elsif response.body['state'] == 'completed'
+        # Add test test to db on success
         results = response.body['results']
         GtMetrixTest.create(
             :company => testing_job.company,
@@ -24,14 +28,17 @@ class TestCompaniesJob < ApplicationJob
             :pagespeed_score => results['pagespeed_score'],
             :yslow_score => results['yslow_score'],
             :fully_loaded_time => results['fully_loaded_time'],
-            :report_url => results['report_url']
-            )
+            :report_url => results['report_url'],
+            :state => response.body['state']
+        )
         # testroy test job after success
         testing_job.destroy
       else
-        # re-check it again in 1 min
-        TestCompaniesJob.set(wait: 1.minute).perform_later(testing_job)
+        # some error
+        GtMetrixTest.create :company => testing_job.company, :state => response.body['error']
+        testing_job.destroy
       end
+
     end
   end
 
