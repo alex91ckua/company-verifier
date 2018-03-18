@@ -3,9 +3,20 @@ class CompaniesController < ApplicationController
 
   # GET /companies
   def index
-    @companies = Company.all
+    # @companies = Company.select('gt_metrix_tests.state as gt_metrix_test_state', :id, :name, :website_url, :email).joins(:gt_metrix_test).all
+    per_page = 20
+    @companies = Company.order(:id).page(params[:page]).per(per_page)
+    prev_page = Company.order(:id).page(params[:page]).per(per_page).prev_page
+    next_page = Company.order(:id).page(params[:page]).per(per_page).next_page
+    current_page = Company.order(:id).page(params[:page]).per(per_page).current_page
 
-    render json: @companies
+    result = Hash.new
+    result[:results] = @companies
+    result[:prev_page] = prev_page if prev_page
+    result[:next_page] = next_page if next_page
+    result[:current_page] = current_page if current_page
+
+    render json: result
   end
 
   # GET /companies/1

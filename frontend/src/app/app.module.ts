@@ -14,13 +14,16 @@ import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
 import {FormsModule} from "@angular/forms";
 import {AlertModule, ProgressbarModule} from "ngx-bootstrap";
-import { TestingJobsComponent } from './components/testing-jobs/testing-jobs.component';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import { CompanyComponent } from './components/company/company.component';
+import { TestHistoryComponent } from './components/test-history/test-history.component';
 
 const appRoutes: Routes = [
   { path: 'import', component: CompaniesImportComponent },
   { path: 'companies', component: CompaniesComponent },
-  { path: 'jobs', component: TestingJobsComponent },
+  { path: 'companies/:page', component: CompaniesComponent },
+  { path: 'tests', component: TestHistoryComponent },
+  { path: 'company/:id', component: CompanyComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
@@ -34,7 +37,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     CompaniesImportComponent,
     HomeComponent,
     CompaniesComponent,
-    TestingJobsComponent
+    CompanyComponent,
+    TestHistoryComponent
   ],
   imports: [
     BrowserModule,

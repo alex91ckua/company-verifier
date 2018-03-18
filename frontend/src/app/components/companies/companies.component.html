@@ -15,18 +15,29 @@
       <th scope="col">Name</th>
       <th scope="col">URL</th>
       <th scope="col">Email</th>
+      <th scope="col">State</th>
     </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of companies; let i = index" >
-        <th scope="row">{{i+1}}</th>
+      <tr *ngFor="let item of companies.results;" >
+        <th scope="row">{{item.id}}</th>
         <td>{{item.name}}</td>
         <td>{{item.website_url}}</td>
         <td>{{item.email}}</td>
+        <td>
+          <a [routerLink]="['/company', item.id]" >Details</a>
+        </td>
       </tr>
 
     </tbody>
   </table>
+
+  <nav aria-label="Companies navigation">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': companies.prev_page == null}" ><a class="page-link" [routerLink]="['/companies', companies.prev_page]">Previous</a></li>
+      <li class="page-item" [ngClass]="{'disabled': companies.next_page == null}"><a class="page-link" [routerLink]="['/companies', companies.next_page]">Next</a></li>
+    </ul>
+  </nav>
 
 </div>
