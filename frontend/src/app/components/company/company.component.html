@@ -1,0 +1,21 @@
+
+<div *ngIf="!company_data" >
+  <p>Loading...</p>
+  <fa name="cog" animation="spin"></fa>
+</div>
+
+<div *ngIf="company_data" >
+
+  <h2>{{company_data.company.name}}</h2>
+
+  <ul>
+    <li>page_load_time - {{company_data.gt_metrix_test.page_load_time}}</li>
+    <li>pagespeed_score - {{company_data.gt_metrix_test.pagespeed_score}}</li>
+    <li>yslow_score - {{company_data.gt_metrix_test.yslow_score}}</li>
+    <li>fully_loaded_time - {{company_data.gt_metrix_test.fully_loaded_time}}</li>
+    <li>report_url -
+      <a target="_blank" href="{{company_data.gt_metrix_test.report_url}}">Report URL</a>
+    </li>
+  </ul>
+
+</div>
