@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AppSettings} from "../app.settings";
 import {HttpHeaders} from "@angular/common/http";
+import {isNumber} from "util";
 
 @Injectable()
 export class ApiService {
@@ -16,12 +17,20 @@ export class ApiService {
     return this.http.post(AppSettings.API_ENDPOINT + '/company_import', form_data, options);
   }
 
-  getCompanies(){
-    return this.http.get(AppSettings.API_ENDPOINT + '/companies');
+  getCompanies(page: number = null){
+    var page_uri = '';
+    if ( isNumber(page) ) {
+      page_uri = '?page=' + page;
+    }
+    return this.http.get(AppSettings.API_ENDPOINT + '/companies' + page_uri);
   }
 
-  getTestingJobs(){
-    return this.http.get(AppSettings.API_ENDPOINT + '/testing_jobs');
+  getCompany(company_id){
+    return this.http.get(AppSettings.API_ENDPOINT + '/companies/' + company_id);
+  }
+
+  getGtMetrixTests(){
+    return this.http.get(AppSettings.API_ENDPOINT + '/gt_metrix_tests/');
   }
 
 }
