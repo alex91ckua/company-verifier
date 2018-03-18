@@ -13,10 +13,11 @@ import { CompaniesComponent } from './components/companies/companies.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./services/api.service";
 import {FormsModule} from "@angular/forms";
-import {AlertModule, ProgressbarModule} from "ngx-bootstrap";
+import {AlertModule, ProgressbarModule, ButtonsModule} from "ngx-bootstrap";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import { CompanyComponent } from './components/company/company.component';
 import { TestHistoryComponent } from './components/test-history/test-history.component';
+import {IonRangeSliderModule} from "ng2-ion-range-slider";
 
 const appRoutes: Routes = [
   { path: 'import', component: CompaniesImportComponent },
@@ -48,7 +49,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     PapaParseModule,
     AlertModule.forRoot(),
     ProgressbarModule.forRoot(),
-    AngularFontAwesomeModule
+    ButtonsModule,
+    AngularFontAwesomeModule,
+    IonRangeSliderModule
   ],
   providers: [
       ApiService
