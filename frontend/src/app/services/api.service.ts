@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {AppSettings} from "../app.settings";
 import {HttpHeaders} from "@angular/common/http";
 import {isNumber} from "util";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable()
 export class ApiService {
@@ -29,8 +30,19 @@ export class ApiService {
     return this.http.get(AppSettings.API_ENDPOINT + '/companies/' + company_id);
   }
 
-  getGtMetrixTests(){
-    return this.http.get(AppSettings.API_ENDPOINT + '/gt_metrix_tests/');
+  getGtMetrixTests(query_params: Object = null){
+
+    let params = new HttpParams();
+
+    for (let key in query_params) {
+      let value = query_params[key];
+      // Use `key` and `value`
+      if ( value != null) {
+        params = params.append(key, value);
+      }
+    }
+
+    return this.http.get(AppSettings.API_ENDPOINT + '/gt_metrix_tests/', {params: params});
   }
 
 }

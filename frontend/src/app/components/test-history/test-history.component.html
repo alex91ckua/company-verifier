@@ -13,49 +13,98 @@
 
   <div *ngIf="filterModel">
 
-    <div class="row" >
-      <h3 class="mb-3 mt-3" >Filters</h3>
+    <form (ngSubmit)="onFilterSubmit()" >
+
+      <div class="row" >
+        <h3 class="col-12 mb-3 mt-3" >Filters</h3>
+      </div>
+
+      <div class="row pt-2 pb-1"  >
+
+        <div class="col-md-4" >
+          <h5>Page Speed Score</h5>
+          <ion-range-slider type="double"
+                            min="0"
+                            max="100"
+                            [from]="filters['by_page_speed[from]'] ? filters['by_page_speed[from]'] : 0"
+                            [to]="filters['by_page_speed[to]'] ? filters['by_page_speed[to]'] : 100"
+                            from_shadow="true"
+                            to_shadow="true"
+                            grid_num="10"
+                            prefix=""
+                            postfix=""
+                            (onFinish)="filters['by_page_speed[from]']= $event.from; filters['by_page_speed[to]']= $event.to;"
+                            decorate_both="false"></ion-range-slider>
+        </div>
+
+        <div class="col-md-4" >
+          <h5>YSlow Score</h5>
+          <ion-range-slider type="double"
+                            min="0"
+                            max="100"
+                            [from]="filters['by_yslow_score[from]'] ? filters['by_yslow_score[from]'] : 0"
+                            [to]="filters['by_yslow_score[to]'] ? filters['by_yslow_score[to]'] : 100"
+                            from_shadow="true"
+                            to_shadow="true"
+                            grid_num="10"
+                            prefix=""
+                            postfix=""
+                            (onFinish)="filters['by_yslow_score[from]']= $event.from; filters['by_yslow_score[to]']= $event.to;"
+                            decorate_both="false"></ion-range-slider>
+        </div>
+
+
+        <div class="col-md-4" >
+          <h5>Page Load Time</h5>
+          <ion-range-slider #sliderElement
+                            type="double"
+                            min="0"
+                            max="100000"
+                            [from]="filters['by_page_load_time[from]'] ? filters['by_page_load_time[from]'] : 0"
+                            [to]="filters['by_page_load_time[to]'] ? filters['by_page_load_time[to]'] : 100000"
+                            from_shadow="true"
+                            to_shadow="true"
+                            step="1000"
+                            prefix=""
+                            postfix=""
+                            (onFinish)="filters['by_page_load_time[from]']= $event.from; filters['by_page_load_time[to]']= $event.to;"
+                            decorate_both="false"></ion-range-slider>
+        </div>
+
+
     </div>
 
-    <div class="row p-5"  >
+      <div class="row pt-2 pb-2" >
 
-      <div class="col-md-5" >
-        <h5>Page Speed Score</h5>
-        <ion-range-slider #sliderElement
-                          type="double"
-                          min="0"
-                          max="100"
-                          from="0"
-                          from_shadow="true"
-                          to_shadow="true"
-                          grid_num="10"
-                          prefix="PageSpeed Score: "
-                          postfix=" "
-                          decorate_both="false"
-                          (onUpdate)="myOnUpdate($event)"
-                          (onChange)="myOnChange($event)"
-                          (onFinish)="myOnFinish($event)"></ion-range-slider>
+        <div class="col-md-4" >
+          <h5>Fully Load Time (msec)</h5>
+          <ion-range-slider type="double"
+                            min="0"
+                            max="100000"
+                            [from]="filters['by_fully_load_time[from]'] ? filters['by_fully_load_time[from]'] : 0"
+                            [to]="filters['by_fully_load_time[to]'] ? filters['by_fully_load_time[to]'] : 100000"
+                            from_shadow="true"
+                            to_shadow="true"
+                            step="1000"
+                            prefix=""
+                            postfix=""
+                            (onFinish)="filters['by_fully_load_time[from]']= $event.from; filters['by_fully_load_time[to]']= $event.to;"
+                            decorate_both="false"></ion-range-slider>
+        </div>
+
       </div>
 
-      <div class="col-md-5 offset-md-2" >
-        <h5>YSlow Score</h5>
-        <ion-range-slider #sliderElement
-                          type="double"
-                          min="0"
-                          max="100"
-                          from="0"
-                          from_shadow="true"
-                          to_shadow="true"
-                          grid_num="10"
-                          prefix="YSlow Score: "
-                          postfix=" "
-                          decorate_both="false"
-                          (onUpdate)="myOnUpdate($event)"
-                          (onChange)="myOnChange($event)"
-                          (onFinish)="myOnFinish($event)"></ion-range-slider>
+      <div class="row pt-4 pb-5">
+
+        <div class="col-2" >
+          <button type="submit" class="btn btn-primary" >Apply Filters</button>
+          <div class="pt-3">
+            <a routerLink="/tests" [queryParams]="{clean: 1}" >Clear Filters</a>
+          </div>
+        </div>
       </div>
 
-  </div>
+    </form>
 
   </div>
 
@@ -64,21 +113,21 @@
 
   <table class="table table-hover">
     <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Company ID</th>
-      <th scope="col">Page Load Time</th>
-      <th scope="col">PageSpeed Score</th>
-      <th scope="col">Yslow Score</th>
-      <th scope="col">Fully Loaded Time</th>
-      <th scope="col">Report URL</th>
-      <th scope="col">State</th>
-    </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company ID</th>
+        <th scope="col">Page Load Time</th>
+        <th scope="col">PageSpeed Score</th>
+        <th scope="col">Yslow Score</th>
+        <th scope="col">Fully Loaded Time</th>
+        <th scope="col">Report URL</th>
+        <th scope="col">State</th>
+      </tr>
     </thead>
     <tbody>
 
-    <tr *ngFor="let test of tests; let i = index" >
-      <th scope="row">{{i+1}}</th>
+    <tr *ngFor="let test of tests;" >
+      <th scope="row">{{test.id}}</th>
       <td>{{test.company_id}}</td>
       <td>{{test.page_load_time}}</td>
       <td>{{test.pagespeed_score}}</td>
