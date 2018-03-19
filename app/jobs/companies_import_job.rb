@@ -18,6 +18,8 @@ class CompaniesImportJob < ApplicationJob
         @imported_companies_count += 1
         # run website test via GtMetrix API
         gtmetrix_test(company)
+      else
+        # add some log message...
       end
     end
 

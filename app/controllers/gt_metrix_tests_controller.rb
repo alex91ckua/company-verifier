@@ -2,6 +2,8 @@ class GtMetrixTestsController < ApplicationController
 
   has_scope :by_page_speed, using: [:from, :to], only: :index
   has_scope :by_yslow_score, using: [:from, :to], only: :index
+  has_scope :by_fully_load_time, using: [:from, :to], only: :index
+  has_scope :by_page_load_time, using: [:from, :to], only: :index
 
   # Filters available
   # ?by_page_speed[from]=79&by_page_speed[to]=999&by_yslow_score[from]=0&by_yslow_score[to]=80
