@@ -1,9 +1,9 @@
-<h2>Import</h2>
+<h2>Import Companies</h2>
 
 <form *ngIf="!done" (ngSubmit)="onSubmit()">
 
   <div class="form-group">
-    <label for="csv_input_file">File</label>
+    <label for="csv_input_file">CSV File</label>
     <input type="file" class="form-control-file" id="csv_input_file" name="csv_file" (change)="onCsvSelect($event)" aria-describedby="file_help" accept="text/csv,text/plain" >
     <small id="file_help" class="form-text text-muted">Please select .csv file with companies data</small>
   </div>
@@ -66,4 +66,5 @@
 
 <alert *ngIf="done" type="info">
   {{import_message}}
+  Go to <a routerLink="/activity" >Activities</a> page.
 </alert>
