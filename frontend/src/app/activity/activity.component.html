@@ -2,3 +2,6 @@
   <label for="activity">Activity:</label><br>
   <pre id="activity" *ngFor="let item of activity; let i = index">{{ item.created_at | date:'medium' }} - {{ item.message }} {{ item.company_id ? '(Company #'+ item.company_id +')' : '' }}</pre>
 </div>
+
+<button type="button" class="btn btn-primary" (click)="loadActivity()" >
+  <i class="fa fa-refresh" aria-hidden="true"></i>  Refresh</button>

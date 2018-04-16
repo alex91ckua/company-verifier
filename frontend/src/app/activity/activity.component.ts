@@ -18,19 +18,22 @@ export class ActivityComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
 
       console.log( params );
-
-      this._http.getActivity().subscribe(
-        data => {
-          console.log(data);
-          this.activity = data;
-        },
-        err => {
-
-        }
-      );
-
+      this.loadActivity();
     });
 
+  }
+
+  loadActivity(){
+    this.activity = null;
+    this._http.getActivity().subscribe(
+      data => {
+        console.log(data);
+        this.activity = data;
+      },
+      err => {
+
+      }
+    );
   }
 
 }
