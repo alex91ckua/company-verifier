@@ -14,12 +14,20 @@ class CompaniesImportJob < ApplicationJob
       company = Company.create(  :name => name,
                                   :website_url => website_url,
                                   :email => email )
-      if company.valid?
+      if company.errors.any?
+        TestLog.create(company: nil,
+                       message: "Can't test the company with name '#{name}', error: #{company.errors.full_messages.to_sentence}")
+      else
         @imported_companies_count += 1
         # run website test via GtMetrix API
-        gtmetrix_test(company)
-      else
-        # add some log message...
+        if gtmetrix_test(company)
+          # add log
+          TestLog.create(company: company,
+                         message: 'Test request has been added successfully')
+        else
+          TestLog.create(company: company,
+                         message: 'Can\'t create test job via GTMetrix API')
+        end
       end
     end
 
