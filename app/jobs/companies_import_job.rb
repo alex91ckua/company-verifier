@@ -3,22 +3,21 @@ class CompaniesImportJob < ApplicationJob
 
   def perform(csv_file, mapped_fields)
     require('csv')
-    @imported_companies_count = 0
+    # @imported_companies_count = 0
     @csv_columns_count = CSV.read(csv_file.path, headers: true).length
 
     CSV.foreach(csv_file.path, headers: true, encoding: 'iso-8859-1:utf-8') do |row|
-
       name = row[mapped_fields['name']]
       website_url = row[mapped_fields['website_url']]
       email = row[mapped_fields['email']]
-      company = Company.create(  :name => name,
+      company = Company.create(   :name => name,
                                   :website_url => website_url,
-                                  :email => email )
+                                  :email => email)
       if company.errors.any?
         TestLog.create(company: nil,
                        message: "Can't test the company with name '#{name}', error: #{company.errors.full_messages.to_sentence}")
       else
-        @imported_companies_count += 1
+        # @imported_companies_count += 1
         # run website test via GtMetrix API
         if gtmetrix_test(company)
           # add log
@@ -31,6 +30,9 @@ class CompaniesImportJob < ApplicationJob
       end
     end
 
+    rescue CSV::MalformedCSVError
+      TestLog.create(company: nil,
+                     message: 'Failed to import CSV')
   end
 
   private

@@ -31,7 +31,7 @@ class TestCompaniesJob < ApplicationJob
             :report_url => results['report_url'],
             :state => response.body['state']
         )
-        # testroy test job after success
+        # destroy test job after success
         testing_job.destroy
         TestLog.create(company: testing_job.company, message: 'Test was completed and added to database')
       else
