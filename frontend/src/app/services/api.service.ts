@@ -45,4 +45,19 @@ export class ApiService {
     return this.http.get(AppSettings.API_ENDPOINT + '/gt_metrix_tests/', {params: params});
   }
 
+  getActivity(query_params: Object = null){
+
+    let params = new HttpParams();
+
+    for (let key in query_params) {
+      let value = query_params[key];
+      // Use `key` and `value`
+      if ( value != null) {
+        params = params.append(key, value);
+      }
+    }
+
+    return this.http.get(AppSettings.API_ENDPOINT + '/test_logs/', {params: params});
+  }
+
 }

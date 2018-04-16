@@ -18,12 +18,14 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
 import { CompanyComponent } from './components/company/company.component';
 import { TestHistoryComponent } from './components/test-history/test-history.component';
 import {IonRangeSliderModule} from "ng2-ion-range-slider";
+import { ActivityComponent } from './activity/activity.component';
 
 const appRoutes: Routes = [
   { path: 'import', component: CompaniesImportComponent },
   { path: 'companies', component: CompaniesComponent },
   { path: 'companies/:page', component: CompaniesComponent },
   { path: 'tests', component: TestHistoryComponent },
+  { path: 'activity', component: ActivityComponent },
   { path: 'company/:id', component: CompanyComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
@@ -39,7 +41,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     HomeComponent,
     CompaniesComponent,
     CompanyComponent,
-    TestHistoryComponent
+    TestHistoryComponent,
+    ActivityComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,4 @@
+<div class="form-group" *ngIf="activity">
+  <label for="activity">Activity:</label><br>
+  <pre id="activity" *ngFor="let item of activity; let i = index">{{ item.created_at }} - {{ item.message }} {{ item.company_id ? '(Company #'+ item.company_id +')' : '' }}</pre>
+</div>
