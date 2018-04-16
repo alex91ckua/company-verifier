@@ -37,10 +37,10 @@ class CompaniesImportJob < ApplicationJob
 
   def gtmetrix_test(company)
     require 'unirest'
-    response = Unirest.post 'https://gtmetrix-gtmetrix.p.mashape.com/test',
+    response = Unirest.post "#{API_ENDPOINT}/test",
                             headers:{
-                                'Authorization' => 'Basic am9zaEBqbWFya2V0aW5nLmNvbS5hdTo3OGE5MTczZDQ0N2EzMGIyYTVjMzNjZDQ5ZjExMGY4Yg==',
-                                'X-Mashape-Key' => 'SrZo6u3CT9mshZeqDPwRhCqEmQOzp1rftvCjsnBpcSn03sUIpH',
+                                'Authorization' => "Basic #{AUTH_KEY}",
+                                'X-Mashape-Key' => MASHAPE_KEY,
                                 'Content-Type' => 'application/x-www-form-urlencoded',
                                 'Accept' => 'application/json'
                             },

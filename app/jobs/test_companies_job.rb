@@ -4,11 +4,11 @@ class TestCompaniesJob < ApplicationJob
   def perform(testing_job)
     if testing_job.class == TestingJob
       require 'unirest'
-      url = "https://gtmetrix.com/api/0.1/test/#{testing_job.test_id}"
+      url = "#{API_ENDPOINT}/test/#{testing_job.test_id}"
 
       response = Unirest.get url, headers: {
-        'Authorization' => 'Basic am9zaEBqbWFya2V0aW5nLmNvbS5hdTo3OGE5MTczZDQ0N2EzMGIyYTVjMzNjZDQ5ZjExMGY4Yg==',
-        'X-Mashape-Key' => 'SrZo6u3CT9mshZeqDPwRhCqEmQOzp1rftvCjsnBpcSn03sUIpH',
+        'Authorization' => "Basic #{AUTH_KEY}",
+        'X-Mashape-Key' => MASHAPE_KEY,
         'Content-Type' => 'application/x-www-form-urlencoded',
         'Accept' => 'application/json'
       }
