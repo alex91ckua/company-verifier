@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226152059) do
+ActiveRecord::Schema.define(version: 20180416075735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20180226152059) do
     t.index ["company_id"], name: "index_gt_metrix_tests_on_company_id"
   end
 
+  create_table "test_logs", force: :cascade do |t|
+    t.bigint "company_id"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_test_logs_on_company_id"
+  end
+
   create_table "testing_jobs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,5 +53,6 @@ ActiveRecord::Schema.define(version: 20180226152059) do
   end
 
   add_foreign_key "gt_metrix_tests", "companies"
+  add_foreign_key "test_logs", "companies"
   add_foreign_key "testing_jobs", "companies"
 end
